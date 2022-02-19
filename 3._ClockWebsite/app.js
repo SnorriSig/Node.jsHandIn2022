@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require("express");
+const port = process.env.PORT || 8080
 const { log } = require('console');
 const app = express();
 
@@ -30,6 +31,6 @@ app.get("/tokyo", (req, res) => {
     res.sendFile(__dirname + "/public/tokyo.html");
 });
 
-app.listen(8080, () => {
+app.listen(port, () => {
     console.log("Server running on port", 8080);
 });
