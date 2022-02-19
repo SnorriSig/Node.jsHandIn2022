@@ -6,9 +6,9 @@ const app = express();
 const publicDirectoryPath = path.join(__dirname,"/public")
 app.use(express.static(publicDirectoryPath))
 
-// app.get("/", (req, res) =>{
-//     res.sendFile(__dirname + "/public/index.html")
-// });
+app.get("/", (req, res) =>{
+    res.sendFile(__dirname + "/public/index.html")
+});
 
 app.get("/new_york", (req, res) => {
     res.sendFile(__dirname + "/public/new_york.html")
