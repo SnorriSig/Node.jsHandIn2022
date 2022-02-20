@@ -1,0 +1,3 @@
+[submodule "Clock_API_node.js"]
+	path = Clock_API_node.js
+	url = git@github.com:SnorriSig/Clock_API_node.js.git
