@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <title>package.json</title>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="/">Package.json</a>
+      </h1>
+    </header>
+    <main>
+
+            <p>Package.json is holds information about the project on json format. Information includes project:</p>
+               
+            <h3>name</h3>
+                <p>Naming rules must be followed. The most important things in your package.json are the name and version fields as they will be required.</p>
+            
+                <h3>version</h3>            
+                <p>Version must be parseable by node-semver, which is bundled with npm as a dependency. (npm install semver to use it yourself.)</p>
+            
+                <h3>description</h3>
+                <p>Put a description in it. It's a string. This helps people discover your package, as it's listed in npm search.</p>
+            
+                <h3>keywords</h3>
+                <p>Put keywords in it. It's an array of strings. This helps people discover your package as it's listed in npm search.</p>
+            
+                <h3>homepage</h3>
+                <p>The url to the project homepage.</p>
+            
+                <h3>license</h3>
+                <p>You should specify a license for your package so that people know how they are permitted to use it, and any restrictions you're placing on it.</p>
+            
+                <h3>people</h3>
+                <p>people fields: author, contributors - The "author" is one person. "contributors" is an array of people. A "person" is an object with a "name" field and optionally "url" and "email"</p>
+            
+                <h3>funding</h3>
+                <p>You can specify an object containing an URL that provides up-to-date information about ways to help fund development of your package, or a string URL, or an array of these</p>
+            
+                <h3>files</h3>
+                <p>The optional files field is an array of file patterns that describes the entries to be included when your package is installed as a dependency.</p>
+            
+                <h3>main</h3>
+                <p>The main field is a module ID that is the primary entry point to your program.</p>
+            
+                <h3>browser</h3>
+                <p>If your module is meant to be used client-side the browser field should be used instead of the main field. This is helpful to hint users that it might rely on primitives that aren't available in Node.js modules. (e.g. window)</p>
+            
+                <h3>bin</h3>
+                <p>A lot of packages have one or more executable files that they'd like to install into the PATH. npm makes this pretty easy (in fact, it uses this feature to install the "npm" executable.)</p>
+            
+                <h3>man</h3>
+                <p>Specify either a single file or an array of filenames to put in place for the man program to find.</p>
+            
+                <h3>directories</h3>
+                <p>The CommonJS Packages spec details a few ways that you can indicate the structure of your package using a directories object. If you look at npm's package.json, you'll see that it has directories for doc, lib, and man.</p>
+
+                <h3>repository</h3>
+                <p>Specify the place where your code lives. This is helpful for people who want to contribute. If the git repo is on GitHub, then the npm docs command will be able to find you.</p>
+            
+                <h3>scripts</h3>
+                <p>The "scripts" property is a dictionary containing script commands that are run at various times in the lifecycle of your package. The key is the lifecycle event, and the value is the command to run at that point.</p>
+            
+                <h3>config</h3>
+                <p>A "config" object can be used to set configuration parameters used in package scripts that persist across upgrades. For instance, if a package had the following:</p>
+            
+                <h3>dependencies</h3>
+                <p>Dependencies are specified in a simple object that maps a package name to a version range. The version range is a string which has one or more space-separated descriptors. Dependencies can also be identified with a tarball or git URL.</p>
+            
+                <h3>devDependencies</h3>
+                <p>If someone is planning on downloading and using your module in their program, then they probably don't want or need to download and build the external test or documentation framework that you use. In this case, it's best to map these additional items in a devDependencies object.</p>
+            
+                <h3>peerDependencies</h3>
+                <p>In some cases, you want to express the compatibility of your package with a host tool or library, while not necessarily doing a require of this host. This is usually referred to as a plugin. Notably, your module may be exposing a specific interface, expected and specified by the host documentation.</p>
+            
+                <h3>peerDependenciesMeta</h3>
+                <p>When a user installs your package, npm will emit warnings if packages specified in peerDependencies are not already installed. The peerDependenciesMeta field serves to provide npm more information on how your peer dependencies are to be used. Specifically, it allows peer dependencies to be marked as optional.</p>
+            
+                <h3>bundledDependencies</h3>
+                <p>This defines an array of package names that will be bundled when publishing the package.</p>
+            
+                <h3>optionalDependencies</h3>
+                <p>If a dependency can be used, but you would like npm to proceed if it cannot be found or fails to install, then you may put it in the optionalDependencies object.</p>
+            
+                <h3>overrides</h3>
+                <p>If you need to make specific changes to dependencies of your dependencies, for example replacing the version of a dependency with a known security issue, replacing an existing dependency with a fork, or making sure that the same version of a package is used everywhere, then you may add an override.</p>
+            
+                <h3>engines</h3>
+                <p>You can specify the version of node that your stuff works on.</p>
+            
+                <h3>os</h3>
+                <p>You can specify which operating systems your module will run on.</p>
+            
+                <h3>cpu</h3>
+                <p>If your code only runs on certain cpu architectures, you can specify which ones.</p>
+            
+                <h3>private</h3>
+                <p>If you set "private": true in your package.json, then npm will refuse to publish it.</p>
+            
+                <h3>publishConfig</h3>
+                <p>This is a set of config values that will be used at publish-time. It's especially handy if you want to set the tag, registry or access, so that you can ensure that a given package is not tagged with "latest", published to the global public registry or that a scoped module is private by default.</p>
+            
+                <h3>workspaces</h3>
+                <p>The optional workspaces field is an array of file patterns that describes locations within the local file system that the install client should look up to find each workspace that needs to be symlinked to the top level node_modules folder.</p>
+            
+                <h3>DEFAULT VALUES</h3>
+                <p>npm will default some values based on package contents.</p>
+                <p>"scripts": {"start": "node server.js"}</p>    
+                <p>If there is a server.js file in the root of your package, then npm will default the start command to node server.js.</p>
+                <p> "scripts":{"install": "node-gyp rebuild"}
+                <p> If there is a binding.gyp file in the root of your package and you have not defined an install or preinstall script, npm will default the install command to compile using node-gyp.</p>
+                <p> "contributors": [...]</p>
+                <p>  If there is an AUTHORS file in the root of your package, npm will treat each line as a Name <email> (url) format, where email and url are optional. Lines which start with a # or are blank, will be ignored.</p> 
+
+    </main>
+    <footer></footer>
+  </body>
+</html>

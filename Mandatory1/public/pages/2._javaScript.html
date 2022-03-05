@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>JavaScript</title>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="/">JavaScript</a>
+      </h1>
+      </header>
+      <main>
+      <div class="flex-container">
+        <div>
+          <h2>.forEach()</h2>
+          <p>
+            The forEach() method executes a provided function once for each
+            array element.
+          </p>
+          <p>
+            forEach is used to iterate through each of the elements in an array.
+            Calling forEach does not return anything!
+          </p>
+          <pre><code>
+    const names = ["Daniel", "mozafar", "irina"];
+    names.forEach(function (name, index) {
+    console.log(index + ": " + name);
+    });
+    // expected output: "0: Daniel"
+    // expected output: "1: mozafar"
+    // expected output: "2: irina"
+    </code></pre>
+        </div>
+        <div>
+          <h2>.map()</h2>
+          <p>
+            The map() method creates a new array populated with the results of
+            calling a provided function on every element in the calling array.
+          </p>
+          <pre><code>
+    const array1 = [1, 4, 9, 16];
+    // pass a function to map
+    const map1 = array1.map(x => x * 2);
+    console.log(map1);
+    // expected output: Array [2, 8, 18, 32]</code></pre>
+        </div>
+        <div>
+          <h2>.filter()</h2>
+          <p>
+            The filter() method creates a new array with all elements that pass
+            the test implemented by the provided function.
+          </p>
+          <pre><code>
+    const words = ['spray', 'limit', 'elite',
+    'exuberant', 'destruction', 'present'];
+    const result = words.filter(word => word.length > 6);
+    console.log(result);
+    // expected output: 
+    // Array ["exuberant", "destruction", "present"]
+      </code></pre>
+        </div>
+        <div>
+          <h2>.slice()</h2>
+          <p>
+            The slice() method returns a shallow copy of a portion of an array
+            into a new array object selected from start to end (end not
+            included) where start and end represent the index of items in that
+            array. The original array will not be modified.
+          </p>
+          <pre><code>
+    const animals = ['ant', 'bison', 'camel',
+     'duck', 'elephant'];
+    console.log(animals.slice(2));
+    // expected output: Array ["camel",
+     "duck", "elephant"]  
+    console.log(animals.slice(2, 4));
+    // expected output: Array ["camel", "duck"]  
+    console.log(animals.slice(1, 5));
+    // expected output: Array ["bison", "camel",
+     "duck", "elephant"]  
+    console.log(animals.slice(-2));
+    // expected output: Array ["duck", "elephant"]
+    console.log(animals.slice(2, -1));
+    // expected output: Array ["camel", "duck"]
+    console.log(animals.slice());
+    // expected output: Array ["ant", "bison",
+     "camel", "duck", "elephant"]
+      </code></pre>
+        </div>
+        <div>
+          <h2>.pop()</h2>
+          <p>
+            The pop() method removes the last element from an array and returns
+            that element. This method changes the length of the array.
+          </p>
+          <pre><code>
+    const plants = ['broccoli', 'cauliflower',
+     'cabbage', 'kale', 'tomato'];
+    console.log(plants.pop());
+    // expected output: "tomato"    
+    console.log(plants);
+    // expected output: Array ["broccoli",
+     "cauliflower", "cabbage", "kale"]
+    plants.pop();
+    console.log(plants);
+    // expected output: Array ["broccoli",
+     "cauliflower", "cabbage"]
+      </code></pre>
+        </div>
+        <div>
+          <h2>Spread syntax (...)</h2>
+          <p>
+            Spread syntax (...) allows an iterable such as an array expression
+            or string to be expanded in places where zero or more arguments (for
+            function calls) or elements (for array literals) are expected, or an
+            object expression to be expanded in places where zero or more
+            key-value pairs (for object literals) are expected.
+          </p>
+          <pre><code>
+    function sum(x, y, z) {
+      return x + y + z;
+    }
+    const numbers = [1, 2, 3];
+    console.log(sum(...numbers));
+    // expected output: 6
+    console.log(sum.apply(null, numbers));
+    // expected output: 6
+    </code></pre>
+        </div>
+        <div>
+          <h2>Fetch API</h2>
+          <p>
+            <p>
+              The Fetch API provides a JavaScript interface for accessing and
+              manipulating parts of the HTTP pipeline, such as requests and
+              responses. It also provides a global fetch() method that provides
+              an easy, logical way to fetch resources asynchronously across the
+              network.
+            </p>
+            <p>fetch(apiUrl) - will send a GET request</p>
+            <p>
+              .then(response => response.json()) - Will take the response from
+              the API and encode the JSON so we can use it in Javascript
+            </p>
+            <p>
+              .then(data => console.log(data)); - Will log the data received
+              from the API to the console
+            </p>
+            <p>
+              The .then is a new concept that you will learn in the next class.
+              Basically callling the fetch method returns a Promise. But for now
+              just focus on how to use fetch to get data from an API.
+            </p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"
+              >Fetch API</a
+            >
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+              >Using Fetch</a
+            >
+          </p>
+          <pre><code>
+    fetch('http://example.com/movies.json')
+      .then(response => response.json())
+      .then(data => console.log(data));
+    </code></pre>
+        </div>
+      </div>
+    </main>
+  </body>
+  <footer></footer>
+</html>

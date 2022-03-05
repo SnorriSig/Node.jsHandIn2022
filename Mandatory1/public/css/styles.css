@@ -1,0 +1,102 @@
+  /* Global */
+  body {
+    font-family: "Tenor Sans", sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: bold;
+    background-color: WhiteSmoke;
+    text-align: center;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  footer {
+      margin-bottom: 10rem;
+  }
+  /* ** */
+
+/* Page Title & links */
+h1 {
+    margin-top: 10rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }  
+  a:hover {
+    color: RoyalBlue;
+    cursor: pointer;
+  }  
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  h3 {
+      font-weight:900;
+  }
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1rem;
+  }
+  /* ** */
+
+  /* List */
+  ul {
+    text-align: center;
+    list-style-type: none;
+  }
+   li {
+    margin: 1rem;
+  } 
+  /* ** */
+
+  /* Images */
+  img {  
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  /* ** */
+
+  /* Table */
+  table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+  }
+  
+  td, th {
+    border: 1px solid lightgray;
+    padding: 8px;
+  }
+  
+  table tr:nth-child(even){background-color: white;}
+  
+  table tr:hover {background-color: lightgrey;}
+  
+  table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: darkgray;
+    color: white;
+  }
+  /* ** */
+
+  /* Flexbox */
+  .flex-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    text-align: center
+  }
+  
+  .flex-container > div {
+    width: 40%;
+    margin: 1rem;
+    text-align: left;
+    line-height: 2rem;
+  }
+  /* ** */
