@@ -1,0 +1,66 @@
+/**
+ * General JS plugins initialization
+ *
+ * @author Cristiano Sanseverino <c.sanseverino@youwe.nl>
+ **/
+
+define(['jquery', 'kalkhoffTheme'], function($) {
+	$(document).ready(function() {
+
+		$('label[for="feature-container"]').on('click', function(e) {
+			e.preventDefault();
+			var input = document.querySelector('input#' + this.getAttribute('for'));
+			input.checked = !input.checked;
+		});
+
+		$('.in-view').on('inview', function(event, isInView) {
+			if (isInView) {
+				$(this).addClass('is-in-view');
+				$(this).addClass('was-in-view');
+				// element is now visible in the viewport
+			} else {
+				$(this).removeClass('is-in-view');
+				// element has gone out of viewport
+			}
+		});
+	});
+
+	function offset(el) {
+		var rect = el.getBoundingClientRect(),
+			scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+			scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+	}
+
+	// Fixed elements
+
+	var fixed = {
+		top: 0
+	};
+	fixed.scroll = function(el) {
+		var windowTop =
+			(window.pageYOffset || document.documentElement.scrollTop) -
+			(document.documentElement.clientTop || 0);
+
+		if (fixed.top == 0) {
+			fixed.top = offset(el).top;
+		}
+
+		if (windowTop > fixed.top) {
+			el.classList.add('fixed');
+		} else {
+			el.classList.remove('fixed');
+		}
+	};
+	fixed.init = function() {
+		fixed.elements = document.querySelectorAll('.fixed-after');
+		if (fixed.elements.length > -1) {
+			[].forEach.call(fixed.elements, function(el) {
+				window.onscroll = function() {
+					fixed.scroll(el);
+				};
+			});
+		}
+	};
+	fixed.init();
+});

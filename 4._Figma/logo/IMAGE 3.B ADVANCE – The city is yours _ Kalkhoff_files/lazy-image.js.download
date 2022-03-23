@@ -1,0 +1,185 @@
+/**
+ * Image lazy loading module
+ * Can lazy load src (via data-lazy-src) and background images (via data-lazy-bg).
+ *
+ * If lazy images after pageload are added, the internal store needs to be updated. You can do so
+ * by importing this file as a dependency, and calling LazyImage.update();
+ *
+ * @note Prefix for now is data-lazy-src because there is still some custom build lazy loading in the site that
+ *       already uses data-src. To prevent any issues, this modules uses data-lazy-src.
+ *
+ * @author Jeroen Reumkens <jeroen.reumkens@tamtam.nl>
+ */
+
+define([
+    'jquery',
+    'isElementInViewport',
+    'underscore',
+    'webdam-image-helper'
+], function ($, isElementInViewport, _, webdamImageHelper) {
+    'use strict';
+
+    let DATA_ATTR_SRC = 'lazy-src';
+    let DATA_ATTR_BG = 'lazy-bg';
+    let LOADED_IDENTIFIER_KEY = '__IMAGE_IS_LAZYLOADED';
+    let CLASS_IMG_LOADED = 'lazy-img-loaded';
+    let $window = $(window);
+    let VIEWPORT_OFFSET = 250;
+
+    function LazyImage () {
+        var self = this;
+        $(document).ready(self.loadScripts.bind(self));
+    }
+
+    LazyImage.prototype.constructor = LazyImage;
+    LazyImage.prototype.bindEvents = bindEvents;
+    LazyImage.prototype.readImagesFromDOM = readImagesFromDOM;
+    LazyImage.prototype.checkImages = checkImages;
+    LazyImage.prototype.checkImage = checkImage;
+    LazyImage.prototype.loadImage = loadImage;
+    LazyImage.prototype.setImageSrc = setImageSrc;
+    LazyImage.prototype.setImageBg = setImageBg;
+    LazyImage.prototype.applyImageSrcset = applyImageSrcset;
+    LazyImage.prototype.update = update;
+    LazyImage.prototype.loadScripts = loadScripts;
+    LazyImage.prototype.addLoadedClass = addLoadedClass;
+
+    function loadScripts () {
+        this.readImagesFromDOM();
+        this.bindEvents();
+        this.checkImages();
+    }
+
+    function bindEvents() {
+        var self = this;
+        $window.on('scroll', _.throttle(self.checkImages.bind(self), 250));
+    }
+
+
+    function readImagesFromDOM() {
+        this.$images = $('[data-' + DATA_ATTR_SRC + '], [data-' + DATA_ATTR_BG + ']');
+    }
+
+    /**
+     * Check all images in store.
+     */
+    function checkImages(force) {
+
+        var self = this;
+
+        if (!this.$images) {
+            return;
+        }
+
+        this.$images.each(function () {
+            var $image = $(this);
+            var loadedClass = $image.hasClass(CLASS_IMG_LOADED);
+
+            if (force === true && $image && $image.length && isElementInViewport($image, false, VIEWPORT_OFFSET)) {
+                self.loadImage($image);
+                return;
+            }
+
+            if (!$image || !$image.length
+                || !$image.is(':visible')
+                || $image[0][LOADED_IDENTIFIER_KEY] === true
+                || loadedClass) return;
+
+            if (isElementInViewport($image, false, VIEWPORT_OFFSET)) {
+                self.loadImage($image);
+            }
+        });
+    }
+
+    /**
+     * Check and reload specific image in store.
+     */
+    function checkImage($image) {
+        var self = this;
+
+        if (!$image || !$image.length || !$image.is(':visible')) return;
+        if (isElementInViewport($image, false, VIEWPORT_OFFSET)) {
+            self.loadImage($image);
+        }
+    }
+
+
+    /**
+     * Replace data attrs and set src / bg image.
+     * @param $image
+     * @returns {boolean} - Image loaded or not.
+     */
+    function loadImage($image) {
+
+        var attrSrc = $image.data(DATA_ATTR_SRC);
+        var attrBg = $image.data(DATA_ATTR_BG);
+        var loaded = false;
+
+        if (attrSrc) {
+            this.setImageSrc($image, attrSrc);
+
+            if (webdamImageHelper.isWebdamImage(attrSrc)) {
+                this.applyImageSrcset($image, webdamImageHelper.getWebdamImageSrcset(attrSrc));
+            }
+        } else if (attrBg) {
+            this.setImageBg($image, attrBg);
+        }
+
+        if (attrSrc || attrBg) {
+            // Remove from array because it wouldn't make sense to keep checking the inview for this image anymore.
+            $image[0][LOADED_IDENTIFIER_KEY] = true;
+            loaded = true;
+            this.addLoadedClass($image);
+        }
+
+        return loaded;
+    }
+
+    function setImageSrc($image, src) {
+        $image
+            .attr('src', src)
+            .prop(DATA_ATTR_SRC, null);
+    }
+
+    function setImageBg($image, src) {
+        $image
+            .css({'backgroundImage': 'url("' + src + '")'})
+            .prop(DATA_ATTR_BG, null);
+    }
+
+    function applyImageSrcset($image, imageSources) {
+        $image.attr('srcset', imageSources);
+        $image.attr('sizes', $image.parent().width() ? $image.parent().width() + 'px' : '1280px');
+    }
+
+    /**
+     * Update the internal image store with new images from dom.
+     * Also triggers new check for in view images.
+     */
+    function update(force) {
+        this.readImagesFromDOM();
+        this.checkImages(force);
+    }
+
+    /**
+     * Adds loaded class. If image isn't loaded over http yet, it adds a loaded callback.
+     * @param $image
+     */
+    function addLoadedClass($image) {
+        var imgEl = $image[0];
+
+        // Image is not loaded yet -> Add class on load callback
+        if (!imgEl.complete || (typeof imgEl.naturalWidth !== 'undefined' && imgEl.naturalWidth === 0)) {
+            imgEl.load = imgEl.onError = function () {
+                setTimeout(function () {
+                    this.classList.add(CLASS_IMG_LOADED)
+                }, 200);
+            };
+        }
+
+        // Image is loaded -> Add class directly
+        imgEl.classList.add(CLASS_IMG_LOADED);
+    }
+
+    return new LazyImage();
+});

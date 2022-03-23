@@ -1,0 +1,34 @@
+define([
+    'Vue',
+    'vue!PonbikeRangeCalculatorComponents/Calculator.vue',
+    'vue!PonbikeRangeCalculatorComponents/Input.vue',
+], function (Vue) {
+    'use strict';
+
+    var mageJsComponent = function (config) {
+        const appContainer = document.querySelector(config.element);
+
+        if (!appContainer) {
+            return;
+        }
+
+        new Vue({
+            el: config.element,
+
+            data: {
+                search: {
+                    query: '',
+                    results: false,
+                    loading: false,
+                    triggerLimit: config.triggerLimit,
+                    redirectUrl: config.redirectUrl,
+                },
+                product: config.product,
+                background: config.background,
+                translations: config.translations,
+            }
+        });
+    };
+
+    return mageJsComponent
+});

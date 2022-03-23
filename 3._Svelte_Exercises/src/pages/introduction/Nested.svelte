@@ -1,0 +1,1 @@
+export <p>This a paragraph from Nested.svelte</p>

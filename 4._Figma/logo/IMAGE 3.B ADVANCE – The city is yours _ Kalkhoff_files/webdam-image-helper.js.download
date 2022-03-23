@@ -1,0 +1,31 @@
+define([
+    'jquery'
+], function ($) {
+    'use strict';
+
+    return {
+        webdamUrlPrefix: 'https://cdn2.webdamdb.com/',
+        webdamImageSizes: [
+            {'prefix': '310th_sm_', 'size': '310w'},
+            {'prefix': 'md_', 'size': '550w'},
+            {'prefix': '1280_', 'size': '1280w'}
+        ],
+
+        isWebdamImage: function (imageSrc) {
+            return imageSrc.indexOf(this.webdamUrlPrefix) !== -1;
+        },
+
+        getWebdamImageSrcset: function (imageSrc) {
+            var self = this,
+                imageId = this.getImageIdFromSrc(imageSrc);
+
+            return this.webdamImageSizes.map(function (imageSize) {
+                return self.webdamUrlPrefix + imageSize.prefix + imageId + ' ' + imageSize.size;
+            });
+        },
+
+        getImageIdFromSrc: function (imageSrc) {
+            return imageSrc.substring(imageSrc.lastIndexOf('_') + 1);
+        }
+    };
+});
