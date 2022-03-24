@@ -16,44 +16,44 @@ const packageJson = fs.readFileSync("./public/pages/5._packageJson.html").toStri
 const expressModule = fs.readFileSync("./public/pages/6._express.html").toString();
 const nodemon = fs.readFileSync("./public/pages/7._nodemon.html").toString();
 
-// const commandLinePage = nav.replace("%%DOCUMENT_TITLE%%", "Command-line") + commandLine;
-// const javaScriptPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + javaScript;
-// const restApiPage = nav.replace("%%DOCUMENT_TITLE%%", "REST API") + restApi;
-// const nodeJsPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + nodeJs;
-// const packageJsonPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + packageJson;
-// const expressModulePage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + expressModule;
-// const nodemonPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + nodemon;
+const commandLinePage = nav.replace("%%DOCUMENT_TITLE%%", "Command-line") + commandLine;
+const javaScriptPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + javaScript;
+const restApiPage = nav.replace("%%DOCUMENT_TITLE%%", "REST API") + restApi;
+const nodeJsPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + nodeJs;
+const packageJsonPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + packageJson;
+const expressModulePage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + expressModule;
+const nodemonPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + nodemon;
 
 app.get("/", (req, res) => {
     res.send(frontpage);
 });
 
 app.get("/commandline", (req,res)=>{
-    res.send(nav + commandLine);
+    res.send(commandLinePage);
 });
 
 app.get("/javascript", (req,res)=>{
-    res.send(nav + javaScript);
+    res.send(javaScriptPage);
 });
 
 app.get("/restapi", (req,res)=>{
-    res.send(nav + restApi);
+    res.send(restApiPage);
 });
 
 app.get("/nodejs", (req,res)=>{
-    res.send(nav + nodeJs);
+    res.send(nodeJsPage);
 });
 
 app.get("/packagejson", (req,res)=>{
-    res.send(nav + packageJson);
+    res.send(packageJsonPage);
 });
 
 app.get("/express", (req,res)=>{
-    res.send(nav + expressModule);
+    res.send(expressModulePage);
 });
 
 app.get("/nodemon", (req,res)=>{
-    res.send(nav + nodemon);
+    res.send(nodemonPage);
 });
 
 const PORT = process.env.PORT || 8080;
