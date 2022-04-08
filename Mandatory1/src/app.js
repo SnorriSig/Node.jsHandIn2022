@@ -15,14 +15,15 @@ const nodeJs = fs.readFileSync("./public/pages/4._nodeJs.html").toString();
 const packageJson = fs.readFileSync("./public/pages/5._packageJson.html").toString();
 const expressModule = fs.readFileSync("./public/pages/6._express.html").toString();
 const nodemon = fs.readFileSync("./public/pages/7._nodemon.html").toString();
+const footer = fs.readFileSync("./public/components/footer.html").toString();
 
-const commandLinePage = nav.replace("%%DOCUMENT_TITLE%%", "Command-line") + commandLine;
-const javaScriptPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + javaScript;
-const restApiPage = nav.replace("%%DOCUMENT_TITLE%%", "REST API") + restApi;
-const nodeJsPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + nodeJs;
-const packageJsonPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + packageJson;
-const expressModulePage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + expressModule;
-const nodemonPage = nav.replace("%%DOCUMENT_TITLE%%", "JavaScript") + nodemon;
+const commandLinePage = nav.replaceAll("%%DOCUMENT_TITLE%%", "Command-line") + commandLine + footer;
+const javaScriptPage = nav.replaceAll("%%DOCUMENT_TITLE%%", "JavaScript") + javaScript;
+const restApiPage = nav.replaceAll("%%DOCUMENT_TITLE%%", "REST API") + restApi;
+const nodeJsPage = nav.replaceAll("%%DOCUMENT_TITLE%%", "Node.js") + nodeJs;
+const packageJsonPage = nav.replaceAll("%%DOCUMENT_TITLE%%", "Package.json") + packageJson;
+const expressModulePage = nav.replaceAll("%%DOCUMENT_TITLE%%", "Express") + expressModule;
+const nodemonPage = nav.replaceAll("%%DOCUMENT_TITLE%%", "Nodemon") + nodemon;
 
 app.get("/", (req, res) => {
     res.send(frontpage);
